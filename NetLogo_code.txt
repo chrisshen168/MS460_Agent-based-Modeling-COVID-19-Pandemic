@@ -1,0 +1,245 @@
+extensions [ time ]
+
+globals [
+  ;;number-people
+  ; vaccination-rate
+  lifespan
+  mask-usage-rate
+  ;;infection-rate
+  ;;recovery-rate
+  mask-reduction
+  death-rate
+  healthy-turtle-count
+  vaccinated-turtle-count
+  infected-turtle-count
+  recovered-turtle-count
+  dead-turtle-count
+  healthy-masked-count
+  infected-masked-count
+  recovered-masked-count
+  dead-masked-count
+  healthy-unmasked-count
+  infected-unmasked-count
+  recovered-unmasked-count
+  dead-unmasked-count
+]
+
+turtles-own [status age days-infected using-mask]
+
+to setup
+  clear-all
+  reset-ticks
+  set lifespan 50      ;; 50 years
+  ;;set infection-rate-slider 0.05 ; Default value
+  ;;set infection-rate infection-rate-slider ; Adjusted to slow down infection rate
+  ;; set vaccination-rate 0.33; Adjust as needed
+  set mask-usage-rate 0.5; Adjust as needed
+  ;;set recovery-rate 0.20 ; Adjust as needed
+  set mask-reduction 0.2 ; Adjust as needed, represents 90% reduction in infection rate for mask users
+  set death-rate 0.01 ; Adjust as needed, represents a 1% death rate for infected turtles
+
+  create-turtles number-people [
+    setxy random-xcor random-ycor
+    set age random lifespan
+    ; schedule a birthday a random number of weeks in the future
+    time:schedule-event self [-> get-older ] ticks + random 365
+    ifelse random-float 1 < vaccination-rate [
+      set status "vaccinated"
+      set color blue ; Choose a different color for vaccinated turtles
+    ] [
+      set status "healthy"
+      ifelse random-float 1 < mask-usage-rate [
+        set using-mask true
+        set color green ; Choose a different color for turtles using masks
+      ] [
+        set using-mask false
+        set color violet ; Choose a different color for turtles not using masks
+      ]
+    ]
+    set size 1
+  ]
+
+  ;; Choose 1 turtle to be initially infected
+  ask n-of 1 turtles [
+    set status "infected"
+    set color red
+    set size 1.5
+  ]
+
+  ;; Assign mask usage to some turtles
+  ;;ask n-of 500 turtles [
+  ;;  set using-mask true
+  ;;  set color green ; Choose a different color for turtles using masks
+  ;;]
+
+  ;; Initialize global variables
+  set healthy-turtle-count count turtles with [status = "healthy"]
+  set vaccinated-turtle-count count turtles with [status = "vaccinated"]
+  set infected-turtle-count count turtles with [status = "infected"]
+  set recovered-turtle-count 0 ; Initialize the count of recovered turtles
+  set dead-turtle-count 0 ; Initialize the count of dead turtles
+  set healthy-masked-count count turtles with [status = "healthy" and using-mask = true]
+
+  let masked-infected-turtles turtles with [status = "infected" and using-mask = true]
+  set infected-masked-count count masked-infected-turtles
+
+  ; print (word "Infected and Using Mask Count: " infected-masked-count)
+  set recovered-masked-count 0 ; Initialize the count of recovered turtles using masks
+  set dead-masked-count 0 ; Initialize the count of dead turtles using masks
+  set healthy-unmasked-count count turtles with [status = "healthy" and using-mask = false]
+  set infected-unmasked-count count turtles with [status = "infected" and using-mask = false]
+  set recovered-unmasked-count 0 ; Initialize the count of recovered turtles not using masks
+  set dead-unmasked-count 0 ; Initialize the count of dead turtles not using masks
+
+  update-display
+
+  ;; Create a plot for counting turtles
+  ; clear-all-plots
+  ; create-temporary-plot-pen "Healthy" ; Pen for healthy turtles
+  ; create-temporary-plot-pen "Infected" ; Pen for infected turtles
+  ; create-temporary-plot-pen "Recovered" ; Pen for recovered turtles
+  ; create-temporary-plot-pen "Dead" ; Pen for dead turtles
+
+  reset-ticks
+end
+
+to go
+  ask turtles [
+    if status = "infected" [
+      set days-infected days-infected + 1  ; Increment days-infected for infected turtles
+      check-recovery
+      spread-infection
+    ]
+    check-death
+    if status != "dead" [
+      move
+    ]
+
+    ; If the turtle is turtle 181, print its information
+    if who = 181 [
+      print (word "Turtle ID: " who ", Tick: " ticks ", xcor: " xcor ", ycor: " ycor ", status: " status ", using mask: " using-mask)
+    ]
+  ]
+
+  ;; Update global variables
+  set healthy-turtle-count count turtles with [status = "healthy"]
+  set vaccinated-turtle-count count turtles with [status = "vaccinated"]
+  set infected-turtle-count count turtles with [status = "infected"]
+  set recovered-turtle-count count turtles with [status = "recovered"]
+  set dead-turtle-count count turtles with [status = "dead"]
+  set healthy-masked-count count turtles with [status = "healthy" and using-mask = true]
+  set infected-masked-count count turtles with [status = "infected" and using-mask = true]
+  set recovered-masked-count count turtles with [status = "recovered" and using-mask = true]
+  set dead-masked-count count turtles with [status = "dead" and using-mask = true]
+  set healthy-unmasked-count count turtles with [status = "healthy" and using-mask = false]
+  set infected-unmasked-count count turtles with [status = "infected" and using-mask = false]
+  set recovered-unmasked-count count turtles with [status = "recovered" and using-mask = false]
+  set dead-unmasked-count count turtles with [status = "dead" and using-mask = false]
+
+  ;; Introduce a new infected turtle every 45 ticks (every 1.5 months, assuming 365 ticks per year)
+  if ticks mod 45 = 0 [
+    ifelse any? turtles with [status = "healthy"] [
+      ask n-of 1 turtles with [status = "healthy"] [
+        set status "infected"
+        set color red
+        set size 1.5
+      ]
+    ] [
+      if any? turtles with [status = "recovered"] [
+        ask n-of 1 turtles with [status = "recovered"] [
+          set status "infected"
+          set color red
+          set size 1.5
+        ]
+      ]
+    ]
+  ]
+
+  ;; Update the plot
+  ; plotxy ticks healthy-turtle-count ; Plot healthy turtles
+  ; plotxy ticks infected-turtle-count ; Plot infected turtles
+  ; plotxy ticks recovered-turtle-count ; Plot recovered turtles
+  ; plotxy ticks dead-turtle-count ; Plot dead turtles
+
+  tick
+  time:go-until ticks  ; Execute events scheduled
+end
+
+to move
+  rt random 50
+  lt random 50
+  fd 1
+end
+
+;;Turtle counting variables are advanced.
+to get-older ;; turtle procedure
+  ;; Turtles die of old age once their age exceeds the
+  ;; lifespan (set at 50 years in this model).
+  set age age + 1
+  if age > lifespan [
+    set status "dead"
+    set color gray
+    ; Optionally, keep the following line to remove the turtle from the simulation
+    die
+  ]
+
+  ;; Schedule another birthday in a year
+  time:schedule-event self [-> get-older ] ticks + 365
+
+end
+
+to check-death
+  if (status = "infected") and (days-infected >= 7) and (random-float 1 < death-rate) [
+  set status "dead"
+  set color gray
+  ; die ; Comment out the die command to keep dead turtles in the simulation
+]
+
+end
+
+to check-recovery
+  if status = "infected" and days-infected >= 14 [
+    let adjusted-recovery-rate recovery-rate
+    let remaining-infected count turtles with [status = "infected"] - count turtles with [status = "recovered"] - count turtles with [status = "dead"]
+    if remaining-infected > 100 [
+      set adjusted-recovery-rate 0.5 * recovery-rate ; Adjust as needed, representing a 50% reduction in recovery rate
+    ]
+    if random-float 1 < adjusted-recovery-rate [
+      set status "recovered"
+      set color blue
+      set size 1
+    ]
+  ]
+
+  ; Check if recovered turtles should become healthy after 180 days
+  if status = "recovered" and days-infected >= 180 [
+    set status "healthy"
+    set color green ; Change color to represent healthy status
+    set size 1 ; Reset size to default
+  ]
+
+end
+
+to spread-infection
+  if status = "infected" [
+    ask turtles in-radius 2 [
+      if status = "healthy" [
+        let actual-infection-rate infection-rate
+        if using-mask [ ; Apply reduction for turtles using masks
+          set actual-infection-rate actual-infection-rate * mask-reduction
+        ]
+        if random-float 1 < actual-infection-rate [
+          set status "infected"
+          set color red
+          set size 1.5
+        ]
+      ]
+    ]
+  ]
+end
+
+to update-display
+  ask turtles [
+    if shape != turtle-shape [ set shape turtle-shape ]
+  ]
+end
