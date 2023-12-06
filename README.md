@@ -14,7 +14,7 @@ Setup in BehaviorSpace: BehaviorSpace is a tool in NetLogo that allows for syste
 In summary, users can interact with the model through the interface, adjusting parameters using slides. Monitors provide real-time feedback during the simulation. The code in the Code tab defines the underlying logic of the model. BehaviorSpace enables the systematic exploration of different scenarios. The results are a combination of these elements, providing insights into how the model behaves under various conditions.     
 
 ## The html files included in the repo cannot be viewed directly unless downloaded locally.
-Example screenshots from html files are now provided as listed in the sections below.
+Example screenshots in these html files to explain the setup and key findings are now listed in the sections below.
 ## Findings and recommendations
 This research employs Agent-Based Modeling (ABM) through NetLogo to assess vaccination, mask-wearing, and healthcare capacity's impact on pandemic dynamics. Findings indicate that increased vaccination rates, mask usage, and improved hospital capacity effectively mitigate disease spread and reduce fatalities. The recommendation is to advocate for these measures not only in the context of COVID-19 but also for combating other infectious diseases. Supporting agent-based modeling studies in healthcare is also advised for enhanced preparedness and response strategies.
 ## Color setup
@@ -34,7 +34,8 @@ Hospital capacity = 200, recovery-rate = 0.15 on incidence rate and/or fatality 
 ## Explanation of BehaviorSpace & Command Center.html
 Set up BehaviorSpace     
 To run 270 combinations in sequential order, as selected; to measure (and export the counts to a csv file) at every step
-(example7_1.png, example7_2.png, and example7_3.png)     
+(example7_1.png, example7_2.png, and example7_3.png)   
+
 Command Center to monitor Turtle 181 (Exportable)     
 To monitor any or all individual turtles and optionally export results to a txt file
 (example8_1.png, and example8_2.png)     
