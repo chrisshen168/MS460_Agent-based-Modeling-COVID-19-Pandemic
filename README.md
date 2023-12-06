@@ -9,19 +9,19 @@ The turtles was originally set up using 4 colors: vaccinated and recovered set t
 More colors could be used to distinguish turtles at a different status, e.g. vaccinated changed to pink, and masked healthy changed to orange (example6). 
 ## Intervention effects on incidence and_or fatality rate.html
 Vaccination rate = 0.25 on incidence rate and/or fatality rate / Masked vs unmasked on incidence rate and/or fatality rate
-(example.png)
+(example.png)     
 Vaccination rate = 0.50 on incidence rate and/or fatality rate / Masked vs unmasked on incidence rate and/or fatality rate
-(example2.png)
+(example2.png)     
 Vaccination rate = 0.80 on incidence rate and/or fatality rate / Masked vs unmasked on incidence rate and/or fatality rate
-(example3.png)
+(example3.png)     
 Hospital capacity = 100, recovery-rate = 0.10 on incidence rate and/or fatality rate
-(example4_1.png, and example4.png)
+(example4_1.png, and example4.png)     
 Hospital capacity = 200, recovery-rate = 0.15 on incidence rate and/or fatality rate
-(example5_1.png, and example5.png)
+(example5_1.png, and example5.png)     
 ## Explanation of BehaviorSpace & Command Center.html
 Set up BehaviorSpace     
-to run 270 combinations in sequential order, as selected; to measure (and export the counts to a csv file) at every step
-(example7_1.png, example7_2.png, and example7_3.png)
+To run 270 combinations in sequential order, as selected; to measure (and export the counts to a csv file) at every step
+(example7_1.png, example7_2.png, and example7_3.png)     
 Command Center to monitor Turtle 181 (Exportable)     
-to monitor any or all individual turtles and optionally export results to a txt file
-(example8_1.png, and example8_2.png)
+To monitor any or all individual turtles and optionally export results to a txt file
+(example8_1.png, and example8_2.png)     
