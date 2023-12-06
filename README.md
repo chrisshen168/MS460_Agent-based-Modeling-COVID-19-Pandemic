@@ -1,5 +1,18 @@
 ## Project Overview:
-This project employs NetLogo to simulate diverse COVID-19 scenarios, allowing for the adjustment of critical factors like population size, infection rate, vaccination rate, mask usage rate, mask-reduced infection rate, recovery rate, hospital capacity affecting recovery rate, and death rate. The simulation aims to evaluate the effects of these factors on disease spread and fatality, providing a comprehensive analysis of the pandemic dynamics
+This project employs NetLogo to simulate diverse COVID-19 scenarios, allowing for the adjustment of critical factors like population size, infection rate, vaccination rate, mask usage rate, mask-reduced infection rate, recovery rate, hospital capacity affecting recovery rate, and death rate. The simulation aims to evaluate the effects of these factors on disease spread and fatality, providing a comprehensive analysis of the pandemic dynamics. 
+## How to use:
+In NetLogo, the results are generated through a combination of various elements within the environment, including the interface slides, monitors, code execution, and the BehaviorSpace tool. Here's a breakdown of each component:
+
+Interface Slides: NetLogo allows you to create an interactive user interface using slides. Interface elements such as sliders, buttons, and switches can be adjusted by users to set parameters before running the simulation. These parameters directly influence the behavior of the model.
+
+Monitors: Monitors in NetLogo display real-time information during the simulation. They can show variables, counts, and other relevant data. Monitors are useful for tracking the progress of the simulation and observing key indicators.
+
+Running the Code in the Code Tab: The main logic of the simulation is implemented in the Code tab. This is where you write the NetLogo code that defines the agents, their behaviors, and the rules governing their interactions. Running the code executes the simulation, and the results are reflected in the interface and monitors.
+
+Setup in BehaviorSpace: BehaviorSpace is a tool in NetLogo that allows for systematic exploration of different parameter settings. You can define multiple experimental runs by specifying different combinations of input values. BehaviorSpace automates the process of running simulations across these settings and records the results.
+
+In summary, users can interact with the model through the interface, adjusting parameters using slides. Monitors provide real-time feedback during the simulation. The code in the Code tab defines the underlying logic of the model. BehaviorSpace enables the systematic exploration of different scenarios. The results are a combination of these elements, providing insights into how the model behaves under various conditions.     
+
 ## The html files included in the repo cannot be viewed directly unless downloaded locally.
 Example screenshots from html files are now provided as listed in the sections below.
 ## Findings and recommendations
