@@ -1,5 +1,7 @@
 ## Project Overview:
-This project employs NetLogo to simulate diverse COVID-19 scenarios, allowing for the adjustment of critical factors like population size, infection rate, vaccination rate, mask usage rate, mask-reduced infection rate, recovery rate, hospital capacity affecting recovery rate, and death rate. The simulation aims to evaluate the effects of these factors on disease spread and fatality, providing a comprehensive analysis of the pandemic dynamics. 
+This project employs NetLogo to simulate diverse COVID-19 scenarios, allowing for the adjustment of critical factors like population size, infection rate, vaccination rate, mask usage rate, mask-reduced infection rate, recovery rate, hospital capacity affecting recovery rate, and death rate. 
+
+The simulation aims to evaluate the effects of these factors on disease spread and fatality, providing a comprehensive analysis of the pandemic dynamics. 
 ## How to use:
 In NetLogo, the results are generated through a combination of various elements within the environment, including the interface slides, monitors, code execution, and the BehaviorSpace tool. Here's a breakdown of each component:
 
@@ -23,6 +25,7 @@ Findings indicate that increased vaccination rates, mask usage, and improved hos
 The recommeningdation is to advocate for these measures not only in the context of COVID-19 but also for combat other infectious diseases. Supporting agent-based modeling studies in healthcare is also advised for enhanced preparedness and response strategies.
 ## Color setup
 The turtles was originally set up using 4 colors: vaccinated and recovered set to blue (both being immune), masked healthy set to green, unmasked healthy set to violet, infected set to red, and dead set to gray.
+
 More colors could be used to distinguish turtles at a different status, e.g. vaccinated changed to pink, and masked healthy changed to orange (example6). 
 ## Intervention effects on incidence and_or fatality rate.html
 Vaccination rate = 0.25 on incidence rate and/or fatality rate / Masked vs unmasked on incidence rate and/or fatality rate
